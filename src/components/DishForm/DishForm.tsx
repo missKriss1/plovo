@@ -1,60 +1,65 @@
-import React, { useState } from 'react';
-import { IUser, IUserMutation } from '../../types';
+import React, { useState } from "react";
+import { IUser, IUserMutation } from "../../types";
 
- interface DishFormProps {
-   addNewUser : (newUser: IUser) => void;
- }
+interface DishFormProps {
+  addNewUser: (newUser: IUser) => void;
+}
 
-const DishForm: React.FC <DishFormProps> = ({addNewUser}) => {
+const DishForm: React.FC<DishFormProps> = ({ addNewUser }) => {
   const [newUser, setNewUser] = useState<IUserMutation>({
-    name: '',
-    email: '',
+    name: "",
+    email: "",
     online: false,
-    role: ''
-  })
+    role: "",
+  });
 
-  const ChangeUser = (e: React.ChangeEvent<HTMLInputElement |  HTMLSelectElement>) => {
-    setNewUser(prevState => {
+  const ChangeUser = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    setNewUser((prevState) => {
       return {
         ...prevState,
         [e.target.name]: e.target.value,
-      }
-    })
-  }
+      };
+    });
+  };
 
-  const onCheckboxChange =( e: React.ChangeEvent<HTMLInputElement>) =>{
-   if (e.target.checked) {
-     setNewUser({
-       ...newUser,
-       online:true
-     })
-   }else{
-     setNewUser({
-       ...newUser,
-       online:false
-     })
-   }
-  }
+  const onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setNewUser({
+        ...newUser,
+        online: true,
+      });
+    } else {
+      setNewUser({
+        ...newUser,
+        online: false,
+      });
+    }
+  };
 
   const OnSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if(newUser.name.trim() !== '' && newUser.email.trim() !== '' && newUser.role !== '' ){
+    if (
+      newUser.name.trim() !== "" &&
+      newUser.email.trim() !== "" &&
+      newUser.role !== ""
+    ) {
       addNewUser({
         id: String(new Date()),
         ...newUser,
       });
       setNewUser({
-        name: '',
-        email: '',
+        name: "",
+        email: "",
         online: false,
-        role: ''
+        role: "",
       });
-    }else{
-      alert("Fill in the blanks")
+    } else {
+      alert("Fill in the blanks");
     }
-
-  }
+  };
   return (
     <div>
       <form onSubmit={OnSubmit}>
@@ -95,20 +100,22 @@ const DishForm: React.FC <DishFormProps> = ({addNewUser}) => {
           />
         </div>
 
-
         <div className="mb-3">
-          <label className="form-label">Роль</label>
-          <select className="form-select" name="role" value={newUser.role} onChange={ChangeUser}>
-            <option value="user">User</option>
-            <option value="editor">Editor</option>
-            <option value="admin">Admin</option>
+          <label className="form-label">Role</label>
+          <select
+            className="form-select"
+            name="role"
+            value={newUser.role}
+            onChange={ChangeUser}
+          >
+            <option value="User">User</option>
+            <option value="Editor">Editor</option>
+            <option value="Admin">Admin</option>
           </select>
         </div>
 
         <button className="btn btn-primary">Add</button>
-
       </form>
-
     </div>
   );
 };

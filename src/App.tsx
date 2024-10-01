@@ -1,13 +1,11 @@
-import Plovo from './container /Plovo/Plovo.tsx';
+import Plovo from "./container /Plovo/Plovo.tsx";
 
 const App = () => {
-
-
   return (
     <>
-      <Plovo/>
+      <Plovo />
     </>
-  )
+  );
 };
 
-export default App
+export default App;
