@@ -13,7 +13,7 @@ const DishItem: React.FC <Props> = ({user}) => {
           <div className="col-12">
             <h5 className="item-name">{user.name}</h5>
             <p className="item-email">{user.email}</p>
-            <p className="item-online">{user.online}</p>
+            <p className="item-online">{user.online ? 'Online' : 'Offline'}</p>
             <p className="item-role">{user.role}</p>
           </div>
         </div>

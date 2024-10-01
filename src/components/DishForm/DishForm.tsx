@@ -22,14 +22,27 @@ const DishForm: React.FC <DishFormProps> = ({addNewUser}) => {
     })
   }
 
+  const onCheckboxChange =( e: React.ChangeEvent<HTMLInputElement>) =>{
+   if (e.target.checked) {
+     setNewUser({
+       ...newUser,
+       online:true
+     })
+   }else{
+     setNewUser({
+       ...newUser,
+       online:false
+     })
+   }
+  }
+
   const OnSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if(newUser.name.trim() !== '' && newUser.email.trim() !== '' ){
+    if(newUser.name.trim() !== '' && newUser.email.trim() !== '' && newUser.role !== '' ){
       addNewUser({
         id: String(new Date()),
         ...newUser,
-        online: true
       });
       setNewUser({
         name: '',
@@ -76,7 +89,8 @@ const DishForm: React.FC <DishFormProps> = ({addNewUser}) => {
           <input
             type="checkbox"
             checked={newUser.online}
-            onChange={ChangeUser}
+            onChange={onCheckboxChange}
+            name="online"
             className="form-check-input"
           />
         </div>
@@ -84,7 +98,7 @@ const DishForm: React.FC <DishFormProps> = ({addNewUser}) => {
 
         <div className="mb-3">
           <label className="form-label">Роль</label>
-          <select className="form-select" value={newUser.role} onChange={ChangeUser}>
+          <select className="form-select" name="role" value={newUser.role} onChange={ChangeUser}>
             <option value="user">User</option>
             <option value="editor">Editor</option>
             <option value="admin">Admin</option>
